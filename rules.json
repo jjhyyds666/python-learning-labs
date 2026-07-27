@@ -1,0 +1,1 @@
+{"required_fields": ["id", "label"], "allowed_value_rules": {"label": ["positive", "negative"]}}
