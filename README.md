@@ -40,3 +40,30 @@ python -m pytest -q .\argparse-lab
 ```
 
 验证结果：`7 passed`
+
+### module-import-lab
+
+练习内容：
+
+- 从另一个 Python 文件导入函数
+- 区分直接运行和被其他模块导入
+- 使用 `__name__ == "__main__"` 控制入口行为
+- 使用 `__init__.py` 建立包并统一提供函数
+- 使用相对导入连接包内模块
+- 使用 `__main__.py` 和 `python -m` 运行整个包
+
+运行示例：
+
+```powershell
+cd .\module-import-lab
+python .\app.py
+python -m text_tools
+```
+
+测试命令：
+
+```powershell
+python -m pytest -q .\module-import-lab
+```
+
+验证结果：`4 passed`
