@@ -67,3 +67,32 @@ python -m pytest -q .\module-import-lab
 ```
 
 验证结果：`4 passed`
+
+### package-install-lab
+
+练习内容：
+
+- 为实验创建独立虚拟环境
+- 使用 `pyproject.toml` 描述可安装 Python 项目
+- 使用 `[project.scripts]` 注册命令行入口
+- 使用 `pip install -e .` 进行可编辑安装
+- 直接通过 `greet-lab` 命令运行 Python 函数
+- 为位置参数、可选整数参数和参数边界编写自动测试
+
+安装与运行：
+
+```powershell
+cd .\package-install-lab
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -e .
+greet-lab 小明 --times 3
+```
+
+测试命令：
+
+```powershell
+python -m pytest -q .\package-install-lab
+```
+
+验证结果：`10 passed`
