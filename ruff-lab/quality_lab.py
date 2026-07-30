@@ -1,3 +1,5 @@
+import os
+
 def build_messages(name, times):
     messages = []
     for _ in range(times):
