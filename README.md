@@ -127,3 +127,18 @@ python -m pytest -q
 ```
 
 验证结果：`4 passed`，lint 和格式检查通过。
+
+## GitHub Actions
+
+仓库使用 `.github/workflows/labs-ci.yml` 在每次 push 后自动检查 `ruff-lab`。
+
+自动流程：
+
+1. 下载当前提交的仓库代码。
+2. 准备 Python 3.14。
+3. 安装 pytest 和 Ruff。
+4. 运行 pytest。
+5. 运行 Ruff lint。
+6. 检查 Ruff 格式。
+
+三项检查必须全部通过，工作流才会显示绿色成功。当前只检查已经建立统一 Ruff 规则的 `ruff-lab`，避免旧实验的历史格式影响本次 CI 学习。
