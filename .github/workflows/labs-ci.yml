@@ -1,0 +1,12 @@
+name: Labs CI
+
+on:
+  push:
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Confirm workflow
+        run: echo "GitHub Actions is running"
