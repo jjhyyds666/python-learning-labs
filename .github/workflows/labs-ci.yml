@@ -27,6 +27,15 @@ jobs:
           python -m pytest --version
           ruff --version
 
+      - name: Run tests
+        run: python -m pytest -q ruff-lab
+
+      - name: Run Ruff lint
+        run: ruff check --config ruff-lab/pyproject.toml ruff-lab
+
+      - name: Check Ruff formatting
+        run: ruff format --check --config ruff-lab/pyproject.toml ruff-lab
+
       - name: List repository files
         run: ls
 
