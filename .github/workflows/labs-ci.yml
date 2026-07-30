@@ -8,5 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Download repository
+        uses: actions/checkout@v4
+
+      - name: List repository files
+        run: ls
+
       - name: Confirm workflow
         run: echo "GitHub Actions is running"
