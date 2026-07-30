@@ -11,6 +11,14 @@ jobs:
       - name: Download repository
         uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Show Python version
+        run: python --version
+
       - name: List repository files
         run: ls
 
