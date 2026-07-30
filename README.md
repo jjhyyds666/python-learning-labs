@@ -96,3 +96,34 @@ python -m pytest -q .\package-install-lab
 ```
 
 验证结果：`10 passed`
+
+### ruff-lab
+
+练习内容：
+
+- 区分“代码可以运行”和“代码质量检查通过”
+- 使用 `ruff format --check` 检查格式
+- 使用 `ruff format` 自动整理代码
+- 使用 `ruff check` 发现未使用导入等问题
+- 使用 `ruff check --fix` 自动修复可安全处理的问题
+- 在 lint 修复后再次格式化和运行测试
+- 使用 `pyproject.toml` 保存统一 Ruff 配置
+
+安装开发工具：
+
+```powershell
+cd .\ruff-lab
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements-dev.txt
+```
+
+检查命令：
+
+```powershell
+ruff check .
+ruff format --check .
+python -m pytest -q
+```
+
+验证结果：`4 passed`，lint 和格式检查通过。
