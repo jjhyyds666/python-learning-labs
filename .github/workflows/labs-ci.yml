@@ -17,10 +17,15 @@ jobs:
           python-version: "3.14"
 
       - name: Install development tools
-        run: python -m pip install -r ruff-lab/requirements-dev.txt
+        run: |
+          python -m pip install -r ruff-lab/requirements-dev.txt
+          python -m pip install -r sql-lab/requirements-dev.txt
 
       - name: Run tests
-        run: python -m pytest -q ruff-lab
+        run: >-
+          python -m pytest -q
+          json-config-lab argparse-lab module-import-lab
+          package-install-lab ruff-lab sql-lab
 
       - name: Run Ruff lint
         run: ruff check --config ruff-lab/pyproject.toml ruff-lab

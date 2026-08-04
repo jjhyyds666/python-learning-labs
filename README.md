@@ -97,6 +97,38 @@ python -m pytest -q .\package-install-lab
 
 验证结果：`10 passed`
 
+### sql-lab
+
+练习内容：
+
+- 使用 Python 标准库 `sqlite3` 创建内存数据库
+- 使用 `CREATE TABLE` 创建表
+- 使用 `INSERT` 新增记录
+- 使用 `SELECT` 和 `WHERE` 查询记录
+- 使用 `GROUP BY` 和 `COUNT(*)` 统计标签数量
+- 使用 `UPDATE` 修改指定记录
+- 使用 `DELETE` 删除指定记录
+- 使用 `PRIMARY KEY` 限制记录 id 重复
+- 使用 pytest 验证 SQL 查询和数据修改结果
+
+安装与运行：
+
+```powershell
+cd .\sql-lab
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements-dev.txt
+python .\sql_lab.py
+```
+
+测试命令：
+
+```powershell
+python -m pytest -q
+```
+
+验证结果：`8 passed`
+
 ### ruff-lab
 
 练习内容：
@@ -130,14 +162,14 @@ python -m pytest -q
 
 ## GitHub Actions
 
-仓库使用 `.github/workflows/labs-ci.yml` 在每次 push 后自动检查 `ruff-lab`。
+仓库使用 `.github/workflows/labs-ci.yml` 在每次 push 后自动运行所有已完成实验的 pytest，并对 `ruff-lab` 执行 Ruff 检查。
 
 自动流程：
 
 1. 下载当前提交的仓库代码。
 2. 准备 Python 3.14。
-3. 安装 pytest 和 Ruff。
-4. 运行 pytest。
+3. 安装各实验的开发工具。
+4. 运行全部实验的 pytest。
 5. 运行 Ruff lint。
 6. 检查 Ruff 格式。
 
