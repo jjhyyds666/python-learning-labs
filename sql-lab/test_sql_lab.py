@@ -7,6 +7,7 @@ from sql_lab import (
     create_database,
     delete_annotation,
     find_annotations_by_label,
+    find_annotations_with_annotator,
     update_annotation_label,
 )
 
@@ -46,8 +47,8 @@ def test_count_annotations_by_label_groups_and_counts_rows():
 def test_count_annotations_by_label_changes_when_rows_are_added():
     connection = create_database()
     connection.execute(
-        "INSERT INTO annotations VALUES (?, ?)",
-        (4, "negative"),
+        "INSERT INTO annotations VALUES (?, ?, ?)",
+        (4, "negative", 2),
     )
 
     result = count_annotations_by_label(connection)
@@ -78,6 +79,28 @@ def test_create_database_rejects_duplicate_ids():
 
     with pytest.raises(sqlite3.IntegrityError):
         connection.execute(
-            "INSERT INTO annotations VALUES (?, ?)",
-            (1, "neutral"),
+            "INSERT INTO annotations VALUES (?, ?, ?)",
+            (1, "neutral", 1),
+        )
+
+
+def test_find_annotations_with_annotator_joins_matching_rows():
+    connection = create_database()
+
+    result = find_annotations_with_annotator(connection)
+
+    assert result == [
+        (1, "positive", "Alice"),
+        (2, "negative", "Bob"),
+        (3, "positive", "Alice"),
+    ]
+
+
+def test_create_database_rejects_unknown_annotator():
+    connection = create_database()
+
+    with pytest.raises(sqlite3.IntegrityError):
+        connection.execute(
+            "INSERT INTO annotations VALUES (?, ?, ?)",
+            (4, "neutral", 999),
         )
