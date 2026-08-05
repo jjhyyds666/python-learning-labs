@@ -7,6 +7,7 @@ from sql_lab import (
     create_database,
     delete_annotation,
     find_annotations_by_label,
+    find_annotations_by_annotator_name,
     find_annotations_with_annotator,
     update_annotation_label,
 )
@@ -104,3 +105,21 @@ def test_create_database_rejects_unknown_annotator():
             "INSERT INTO annotations VALUES (?, ?, ?)",
             (4, "neutral", 999),
         )
+
+
+def test_find_annotations_by_annotator_name_returns_matching_rows():
+    connection = create_database()
+
+    alice_result = find_annotations_by_annotator_name(connection, "Alice")
+    bob_result = find_annotations_by_annotator_name(connection, "Bob")
+
+    assert alice_result == [(1, "positive"), (3, "positive")]
+    assert bob_result == [(2, "negative")]
+
+
+def test_find_annotations_by_annotator_name_returns_empty_list_when_no_match():
+    connection = create_database()
+
+    result = find_annotations_by_annotator_name(connection, "Tom")
+
+    assert result == []

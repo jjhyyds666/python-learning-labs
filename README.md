@@ -112,6 +112,7 @@ python -m pytest -q .\package-install-lab
 - 使用 `JOIN` 连接 `annotations` 和 `annotators` 两张表查询
 - 使用 `FOREIGN KEY` 限制标注记录只能引用已经存在的标注员
 - 使用 `PRAGMA foreign_keys = ON` 开启 SQLite 外键检查
+- 使用子查询根据标注员姓名查找对应标注记录
 - 使用 pytest 验证 SQL 查询和数据修改结果
 
 安装与运行：
@@ -130,7 +131,7 @@ python .\sql_lab.py
 python -m pytest -q
 ```
 
-验证结果：`10 passed`
+验证结果：`12 passed`
 
 ### ruff-lab
 

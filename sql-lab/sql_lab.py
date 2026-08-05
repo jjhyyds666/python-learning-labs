@@ -105,6 +105,24 @@ def find_annotations_with_annotator(connection):
     return rows
 
 
+def find_annotations_by_annotator_name(connection, name):
+    rows = connection.execute(
+        """
+        SELECT id, label
+        FROM annotations
+        WHERE annotator_id IN (
+            SELECT id
+            FROM annotators
+            WHERE name = ?
+        )
+        ORDER BY id
+        """,
+        (name,),
+    ).fetchall()
+
+    return rows
+
+
 def main():
     connection = create_database()
     rows = find_annotations_by_label(connection, "positive")
@@ -112,6 +130,7 @@ def main():
     label_counts = count_annotations_by_label(connection)
     print(label_counts)
     print(find_annotations_with_annotator(connection))
+    print(find_annotations_by_annotator_name(connection, "Alice"))
 
     update_annotation_label(connection, 2, "neutral")
     delete_annotation(connection, 3)
