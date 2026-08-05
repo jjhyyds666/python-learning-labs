@@ -25,7 +25,7 @@ jobs:
         run: >-
           python -m pytest -q
           json-config-lab argparse-lab module-import-lab
-          package-install-lab ruff-lab sql-lab
+          package-install-lab ruff-lab sql-lab http-lab
 
       - name: Run Ruff lint
         run: ruff check --config ruff-lab/pyproject.toml ruff-lab

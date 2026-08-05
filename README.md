@@ -137,6 +137,33 @@ python -m pytest -q
 
 验证结果：`16 passed`
 
+### http-lab
+
+练习内容：
+
+- 使用 Python 标准库创建本地 HTTP 服务
+- 理解客户端请求和服务端响应
+- 使用 URL path 区分访问的资源
+- 使用 JSON 作为响应 body
+- 区分成功响应 `200` 和资源不存在 `404`
+- 在客户端接住 `HTTPError`，把错误响应作为普通结果处理
+- 使用 pytest 验证 `/annotations`、`/annotators` 和未定义 path
+
+运行示例：
+
+```powershell
+cd .\http-lab
+python .\http_lab.py
+```
+
+测试命令：
+
+```powershell
+python -m pytest -q .\http-lab
+```
+
+验证结果：`3 passed`
+
 ### ruff-lab
 
 练习内容：
