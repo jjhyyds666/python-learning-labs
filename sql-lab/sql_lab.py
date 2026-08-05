@@ -35,6 +35,22 @@ def update_annotation_label(connection, annotation_id, new_label):
     connection.commit()
 
 
+def update_annotation_labels(connection, updates):
+    with connection:
+        for annotation_id, new_label in updates:
+            cursor = connection.execute(
+                """
+                UPDATE annotations
+                SET label = ?
+                WHERE id = ?
+                """,
+                (new_label, annotation_id),
+            )
+
+            if cursor.rowcount == 0:
+                raise ValueError(f"标注记录不存在: {annotation_id}")
+
+
 def delete_annotation(connection, annotation_id):
     connection.execute(
         """
@@ -70,6 +86,12 @@ def create_database():
         )
         """
     )
+    connection.execute(
+        """
+        CREATE INDEX idx_annotations_label
+        ON annotations(label)
+        """
+    )
 
     connection.executemany(
         "INSERT INTO annotators VALUES (?, ?)",
@@ -87,6 +109,8 @@ def create_database():
             (3, "positive", 1),
         ],
     )
+
+    connection.commit()
 
     return connection
 

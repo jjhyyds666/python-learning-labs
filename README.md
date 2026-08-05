@@ -114,6 +114,9 @@ python -m pytest -q .\package-install-lab
 - 使用 `FOREIGN KEY` 限制标注记录只能引用已经存在的标注员
 - 使用 `PRAGMA foreign_keys = ON` 开启 SQLite 外键检查
 - 使用子查询根据标注员姓名查找对应标注记录
+- 使用 `CREATE INDEX` 为常用查询字段创建索引
+- 使用 `PRAGMA index_list` 查看表上的索引
+- 使用事务保证批量更新要么全部成功，要么失败后全部撤销
 - 使用 pytest 验证 SQL 查询和数据修改结果
 
 安装与运行：
@@ -132,7 +135,7 @@ python .\sql_lab.py
 python -m pytest -q
 ```
 
-验证结果：`13 passed`
+验证结果：`16 passed`
 
 ### ruff-lab
 

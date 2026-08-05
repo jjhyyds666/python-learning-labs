@@ -10,6 +10,7 @@ from sql_lab import (
     find_annotations_by_annotator_name,
     find_annotations_with_annotator,
     update_annotation_label,
+    update_annotation_labels,
 )
 
 
@@ -64,6 +65,43 @@ def test_update_annotation_label_changes_one_row():
 
     assert find_annotations_by_label(connection, "negative") == []
     assert find_annotations_by_label(connection, "neutral") == [(2, "neutral")]
+
+
+def test_update_annotation_labels_changes_multiple_rows():
+    connection = create_database()
+
+    update_annotation_labels(
+        connection,
+        [
+            (1, "neutral"),
+            (2, "positive"),
+        ],
+    )
+
+    assert find_annotations_by_label(connection, "neutral") == [(1, "neutral")]
+    assert find_annotations_by_label(connection, "positive") == [
+        (2, "positive"),
+        (3, "positive"),
+    ]
+
+
+def test_update_annotation_labels_rolls_back_when_one_row_is_missing():
+    connection = create_database()
+
+    with pytest.raises(ValueError, match="标注记录不存在: 999"):
+        update_annotation_labels(
+            connection,
+            [
+                (1, "neutral"),
+                (999, "positive"),
+            ],
+        )
+
+    assert find_annotations_by_label(connection, "positive") == [
+        (1, "positive"),
+        (3, "positive"),
+    ]
+    assert find_annotations_by_label(connection, "neutral") == []
 
 
 def test_delete_annotation_removes_only_requested_row():
@@ -133,3 +171,12 @@ def test_find_annotations_by_annotator_name_returns_empty_list_when_no_match():
     result = find_annotations_by_annotator_name(connection, "Tom")
 
     assert result == []
+
+
+def test_create_database_creates_label_index():
+    connection = create_database()
+
+    rows = connection.execute('PRAGMA index_list("annotations")').fetchall()
+    index_names = [row[1] for row in rows]
+
+    assert "idx_annotations_label" in index_names
