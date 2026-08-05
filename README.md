@@ -109,6 +109,7 @@ python -m pytest -q .\package-install-lab
 - 使用 `UPDATE` 修改指定记录
 - 使用 `DELETE` 删除指定记录
 - 使用 `PRIMARY KEY` 限制记录 id 重复
+- 使用 `UNIQUE` 限制标注员姓名重复
 - 使用 `JOIN` 连接 `annotations` 和 `annotators` 两张表查询
 - 使用 `FOREIGN KEY` 限制标注记录只能引用已经存在的标注员
 - 使用 `PRAGMA foreign_keys = ON` 开启 SQLite 外键检查
@@ -131,7 +132,7 @@ python .\sql_lab.py
 python -m pytest -q
 ```
 
-验证结果：`12 passed`
+验证结果：`13 passed`
 
 ### ruff-lab
 

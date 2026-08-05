@@ -54,7 +54,7 @@ def create_database():
         """
         CREATE TABLE annotators (
             id INTEGER PRIMARY KEY,
-            name TEXT
+            name TEXT UNIQUE
         )
         """
     )

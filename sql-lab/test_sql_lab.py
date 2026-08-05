@@ -85,6 +85,16 @@ def test_create_database_rejects_duplicate_ids():
         )
 
 
+def test_create_database_rejects_duplicate_annotator_names():
+    connection = create_database()
+
+    with pytest.raises(sqlite3.IntegrityError):
+        connection.execute(
+            "INSERT INTO annotators VALUES (?, ?)",
+            (3, "Alice"),
+        )
+
+
 def test_find_annotations_with_annotator_joins_matching_rows():
     connection = create_database()
 
